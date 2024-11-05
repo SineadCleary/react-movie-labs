@@ -3,7 +3,7 @@ import { getPopular } from "../api/tmdb-api";
 import PageTemplate from '../components/templateMovieListPage';
 import { useQuery } from 'react-query';
 import Spinner from '../components/spinner';
-import AddToPlaylist from "../components/cardIcons/playlistAdd";
+import AddToFavoritesIcon from '../components/cardIcons/addToFavorites';
 
 
 const PopularPage = (props) => {
@@ -29,7 +29,7 @@ const PopularPage = (props) => {
       title="Popular Movies"
       movies={movies}
       action={(movie) => {
-        return <AddToPlaylist movie={movie} />
+        return <AddToFavoritesIcon movie={movie} />
       }}
     />
 );
