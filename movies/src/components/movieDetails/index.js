@@ -8,7 +8,8 @@ import Fab from "@mui/material/Fab";
 import Typography from "@mui/material/Typography";
 import React, { useState } from "react";
 import Drawer from "@mui/material/Drawer";
-import MovieReviews from "../movieReviews"
+import MovieReviews from "../movieReviews";
+import Recommendations from "../recommendations";
 
 const root = {
     display: "flex",
@@ -70,6 +71,11 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
           </li>
         ))}
       </Paper>
+
+      <Typography variant="h5" component="h3">
+        Recommended
+      </Typography>
+      <Recommendations movie={movie} />
 
       <Fab
         color="secondary"
