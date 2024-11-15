@@ -33,30 +33,5 @@ export default function Recommendations({ movie }) {
         </MovieList>
       </Grid>
     </Grid>
-
-  // <TableContainer component={Paper}>
-  //   <Table>
-  //     <TableHead>
-  //       <TableRow>
-  //         <TableCell>Title</TableCell>
-  //         <TableCell>Overview</TableCell>
-  //         <TableCell>Release Date</TableCell>
-  //       </TableRow>
-  //     </TableHead>
-  //     <TableBody>
-  //       {recommendations.map((r) => (
-  //         <TableRow key={r.id}>
-  //           <TableCell>
-  //             <Link to={`/movies/${r.id}`}>
-  //               {r.title}
-  //             </Link>
-  //           </TableCell>
-  //           <TableCell>{excerpt(r.overview)}</TableCell>
-  //           <TableCell>{r.release_date}</TableCell>
-  //         </TableRow>
-  //       ))}
-  //     </TableBody>
-  //   </Table>
-  // </TableContainer>
   );
 }
