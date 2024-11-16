@@ -11,6 +11,9 @@ import Drawer from "@mui/material/Drawer";
 import MovieReviews from "../movieReviews";
 import Recommendations from "../recommendations";
 import Translations from "../translations";
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 const root = {
     display: "flex",
@@ -35,6 +38,19 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
       {movie.overview}
     </Typography>
 
+    <Paper component="ul" sx={{...root}}>
+      <Chip icon={<AccessTimeIcon />} label={`${movie.runtime} min.`} />
+      <Chip
+        icon={<MonetizationIcon />}
+        label={`${movie.revenue.toLocaleString()}`}
+      />
+      <Chip
+        icon={<StarRate />}
+        label={`${movie.vote_average} (${movie.vote_count}`}
+      />
+      <Chip label={`Released: ${movie.release_date}`} />
+    </Paper>
+
     <Paper 
       component="ul" 
       sx={{...root}}
@@ -47,19 +63,6 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
           <Chip label={g.name} sx={{...chip}} />
         </li>
       ))}
-    </Paper>
-
-    <Paper component="ul" sx={{...root}}>
-      <Chip icon={<AccessTimeIcon />} label={`${movie.runtime} min.`} />
-      <Chip
-        icon={<MonetizationIcon />}
-        label={`${movie.revenue.toLocaleString()}`}
-      />
-      <Chip
-        icon={<StarRate />}
-        label={`${movie.vote_average} (${movie.vote_count}`}
-      />
-      <Chip label={`Released: ${movie.release_date}`} />
     </Paper>
     
     <Paper component="ul" sx={{...root}}>
@@ -74,9 +77,6 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
     </Paper>
 
     <Paper component="ul" sx={{...root}}>
-      <li>
-        <Chip label="Translations" sx={{...chip}} color="secondary"/>
-      </li>
       <Translations movie={movie}/>
     </Paper>
 
