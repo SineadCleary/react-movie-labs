@@ -11,6 +11,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import img from '../../images/pexels-dziana-hasanbekava-5480827.jpg';
 import { getGenres } from "../../api/tmdb-api";
+import { getLanguages } from "../../api/tmdb-api";
 import { useQuery } from "react-query";
 import Spinner from '../spinner'
 
@@ -24,8 +25,13 @@ const formControl =
 export default function FilterMoviesCard(props) {
 
   const { data, error, isLoading, isError } = useQuery("genres", getGenres);
+  const { data: lData, error: lError, isLoading: lIsLoading, isError: lIsError } = useQuery("languages", getLanguages);
 
   if (isLoading) {
+    return <Spinner />;
+  }
+
+  if (lIsLoading) {
     return <Spinner />;
   }
 
@@ -33,10 +39,21 @@ export default function FilterMoviesCard(props) {
     return <h1>{error.message}</h1>;
   }
 
+  if (lIsError) {
+    return <h1>{lError.message}</h1>;
+  }
+
   const genres = data.genres;
   if (genres[0].name !== "All"){
     genres.unshift({ id: "0", name: "All" });
+    console.log(data)
+    console.log(lData)
   }
+
+  // const languages = lData.languages;
+  // if (languages.slice[0].name !== "All"){
+  //   languages.unshift({ id: "0", name: "All" });
+  // }
 
   const handleChange = (e, type, value) => {
     e.preventDefault();
@@ -51,6 +68,10 @@ export default function FilterMoviesCard(props) {
     handleChange(e, "genre", e.target.value);
   };
 
+  const handleWatchProviderChange = (e) => {
+    handleChange(e, "watchProvider", e.target.value);
+  }
+
 
   return (
     <Card 
@@ -61,7 +82,7 @@ export default function FilterMoviesCard(props) {
       <CardContent>
         <Typography variant="h5" component="h1">
           <SearchIcon fontSize="large" />
-          Filter the movies.
+          Filter movies
         </Typography>
         <TextField
         sx={{...formControl}}
@@ -72,6 +93,7 @@ export default function FilterMoviesCard(props) {
         value={props.titleFilter}
         onChange={handleTextChange}
         />
+
         <FormControl sx={{...formControl}}>
           <InputLabel id="genre-label">Genre</InputLabel>
           <Select
@@ -90,6 +112,25 @@ export default function FilterMoviesCard(props) {
             })}
           </Select>
         </FormControl>
+
+        {/* <FormControl>
+          <InputLabel id="language-label">Translations Available</InputLabel>
+          <Select
+            labelId="language-label"
+            id="language-select"
+            defaultValue=""
+            value={props.languageFilter}
+            onChange={handleLanguageChange}
+          >
+            {languages.map((lang) => {
+              return (
+                <MenuItem key={lang.provider_id} value={lang.provider_id}>
+                  {lang.provider_name}
+                </MenuItem>
+              );
+            })}
+          </Select>
+        </FormControl> */}
       </CardContent>
       <CardMedia
         sx={{ height: 300 }}
@@ -99,7 +140,7 @@ export default function FilterMoviesCard(props) {
       <CardContent>
         <Typography variant="h5" component="h1">
           <SearchIcon fontSize="large" />
-          Filter the movies.
+          Filter movies
           <br />
         </Typography>
       </CardContent>

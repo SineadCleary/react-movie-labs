@@ -8,6 +8,8 @@ function MovieListPageTemplate({ movies, title, action }) {
   const [nameFilter, setNameFilter] = useState("");
   const [genreFilter, setGenreFilter] = useState("0");
   const genreId = Number(genreFilter);
+  const [languageFilter, setLanguageFilter] = useState("0");
+  const watchProviderId = Number(languageFilter);
 
   let displayedMovies = movies
     .filter((m) => {
@@ -15,7 +17,10 @@ function MovieListPageTemplate({ movies, title, action }) {
     })
     .filter((m) => {
       return genreId > 0 ? m.genre_ids.includes(genreId) : true;
-    });
+    })
+    // .filter((m) => {
+    //   return languageId > 0 ? m.language_ids.includes(watchProviderId) : true;
+    // })
 
   const handleChange = (type, value) => {
     if (type === "name") setNameFilter(value);
