@@ -13,12 +13,18 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import HomeIcon from '@mui/icons-material/Home';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import StarIcon from '@mui/icons-material/Star';
 import ListIcon from '@mui/icons-material/List';
+import HourglassTopIcon from '@mui/icons-material/HourglassTop';
+import PeopleIcon from '@mui/icons-material/People';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
 
 const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
 const SiteHeader = ({ history }) => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [value, setValue] = React.useState(0);
   const open = Boolean(anchorEl);
 
   const theme = useTheme();
@@ -30,9 +36,9 @@ const SiteHeader = ({ history }) => {
     { label: "Home", icon: <HomeIcon/>, path: "/" },
     { label: "Favourites", icon: <FavoriteIcon/>, path: "/movies/favorites" },
     { label: "Watchlist", icon: <ListIcon/>, path: "/movies/watchlist" },
-    { label: "Upcoming", path: "/upcoming" },
-    { label: "Top Rated", path: "/topRated" },
-    { label: "Popular", path: "/popular" },
+    { label: "Upcoming", icon: <HourglassTopIcon />, path: "/upcoming" },
+    { label: "Top Rated", icon: <StarIcon />, path: "/topRated" },
+    { label: "Popular", icon: <PeopleIcon />, path: "/popular" },
   ];
 
   const handleMenuSelect = (pageURL) => {
@@ -43,7 +49,12 @@ const SiteHeader = ({ history }) => {
     setAnchorEl(event.currentTarget);
   };
 
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
   return (
+    
     <>
       <AppBar position="fixed" color="secondary">
         <Toolbar>
@@ -83,7 +94,6 @@ const SiteHeader = ({ history }) => {
                     <MenuItem
                       key={opt.label}
                       onClick={() => handleMenuSelect(opt.path)}
-                      endicon={opt.icon}
                     >
                       {opt.label}
                     </MenuItem>
@@ -92,7 +102,18 @@ const SiteHeader = ({ history }) => {
               </>
             ) : (
               <>
+              <Tabs value={value} onChange={handleChange} aria-label="icon-tabs" >
                 {menuOptions.map((opt) => (
+                  <Tab
+                    label={opt.label}
+                    onClick={() => handleMenuSelect(opt.path)}
+                    icon={opt.icon}
+                  >
+                    {opt.label}
+                  </Tab>
+                ))}
+              </Tabs>
+                {/* {menuOptions.map((opt) => (
                   <Button
                     key={opt.label}
                     color="inherit"
@@ -101,13 +122,16 @@ const SiteHeader = ({ history }) => {
                   >
                     {opt.label}
                   </Button>
-                ))}
+                ))} */}
               </>
             )}
         </Toolbar>
       </AppBar>
       <Offset />
     </>
+    
+
+    
   );
 };
 
