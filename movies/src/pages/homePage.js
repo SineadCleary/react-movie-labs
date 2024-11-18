@@ -5,11 +5,11 @@ import { useQuery } from 'react-query';
 import Spinner from '../components/spinner';
 import AddToFavoritesIcon from '../components/cardIcons/addToFavorites'
 import { unstable_createBreakpoints } from "@mui/material";
-
+import { useState } from "react";
 
 const HomePage = (props) => {
-
-  const {  data, error, isLoading, isError }  = useQuery('discover', getMovies)
+  const [page, setPage] = useState(1);
+  const {  data, error, isLoading, isError }  = useQuery(['discover', {page}], getMovies)
 
   if (isLoading) {
     return <Spinner />
@@ -32,6 +32,7 @@ const HomePage = (props) => {
       action={(movie) => {
         return <AddToFavoritesIcon movie={movie} />
       }}
+      page={page}
     />
 );
 
