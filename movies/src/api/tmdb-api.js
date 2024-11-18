@@ -72,7 +72,6 @@ export const getGenres = () => {
   });
 };
 
-
 export const getMovieImages = ({ queryKey }) => {
   const [, idPart] = queryKey;
   const { id } = idPart;

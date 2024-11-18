@@ -22,7 +22,6 @@ export default function Recommendations({ movie }) {
   
   const recommendations = data.results;
 
-
   return (
     <Grid container>
       <Grid container sx={{flex: "1 1 500px"}}>

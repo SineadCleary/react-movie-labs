@@ -3,7 +3,7 @@ import { getUpcoming } from "../api/tmdb-api";
 import PageTemplate from '../components/templateMovieListPage';
 import { useQuery } from 'react-query';
 import Spinner from '../components/spinner';
-import AddToPlaylist from "../components/cardIcons/playlistAdd";
+import AddToPlaylistIcon from "../components/cardIcons/playlistAdd";
 
 
 const UpcomingPage = (props) => {
@@ -20,16 +20,16 @@ const UpcomingPage = (props) => {
   const movies = data.results;
 
   // Redundant, but necessary to avoid app crashing.
-  const favorites = movies.filter(m => m.favorite)
-  localStorage.setItem('favorites', JSON.stringify(favorites))
-  const addToFavorites = (movieId) => true 
+  const playlist = movies.filter(m => m.playlistItem)
+  localStorage.setItem('playlist', JSON.stringify(playlist))
+  const AddToPlaylist = (movieId) => true 
 
   return (
     <PageTemplate
       title="Upcoming Movies"
       movies={movies}
       action={(movie) => {
-        return <AddToPlaylist movie={movie} />
+        return <AddToPlaylistIcon movie={movie} />
       }}
     />
 );
